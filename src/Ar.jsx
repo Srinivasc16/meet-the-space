@@ -26,14 +26,15 @@ function Ar() {
         <div className="ar">
             {/* Background iframe */}
             <div className="iframe-container">
-                {loading && <div className="loader">Loading...</div>}
-                <iframe
-                    src="https://srinivasc16.github.io/meetthespace/"
-                    title="space-view"
-                    onLoad={() => setLoading(false)}
-                    className="iframe-view"
-                />
-            </div>
+    {loading && <div className="loader">Loading...</div>}
+    <iframe
+        src="/Arpage"
+        title="AR View"
+        onLoad={() => setLoading(false)}
+        className="iframe-view"
+    />
+</div>
+
 
             {/* Content Overlay */}
             <div className="content">
