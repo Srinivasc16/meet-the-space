@@ -1,7 +1,7 @@
 .career-paths-container {
     text-align: center;
-    padding: 20px;
-    color: white;
+    color: #333333;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .career-grid {
@@ -13,37 +13,66 @@
 }
 
 .career-card {
-    background: white;
-    color: black;
+    background: #f5f5f5;
+    color: #333333;
     padding: 20px;
-    border-radius: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
     text-align: center;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease;
     cursor: pointer;
-    box-shadow: 0px 5px 5px rgba(26, 42, 108, 0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .career-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .career-icon {
-    font-size: 40px;
-    color: #1a2a6c;
-    margin-bottom: 10px;
+    font-size: 36px;
+    color: #45484d;
+    margin-bottom: 12px;
 }
 
 .career-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .career-description {
     font-size: 14px;
-    color: #a8b2d1;
+    color: #555555;
     margin-top: 5px;
+    line-height: 1.4;
+}
+.career-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+    color: #333333;
+    background-color: #e0e0e0;
+    border: 1px solid #bbbbbb;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 10px auto;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 }
 
+.career-button:hover {
+    background-color: #d0d0d0;
+    border-color: #999999;
+}
+
+.career-button:active {
+    background-color: #c0c0c0;
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(1px);
+}
 /* Modal Styles */
 .modal {
     position: fixed;
@@ -52,11 +81,12 @@
     transform: translate(-50%, -50%);
     width: 80%;
     max-width: 500px;
-    background: white;
-    color: black;
+    background: #f9f9f9;
+    color: #333333;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
 
@@ -66,33 +96,39 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
 
 .modal h2 {
-    color: #1e3a8a;
+    color: #333333;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
 }
-.modal p{
+
+.modal p {
     text-align: left;
+    line-height: 1.5;
 }
 
 .close-btn {
-    background: #e63946;
+    background: #8b0000;
     color: white;
     border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 3px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
 .close-icon {
     position: absolute;
     top: 10px;
     right: 15px;
-    font-size: 40px;
+    font-size: 24px;
     cursor: pointer;
-    color: #0a192f;
-    font-weight: bold;
+    color: #333333;
+    font-weight: normal;
 }
-

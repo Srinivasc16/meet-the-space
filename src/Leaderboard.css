@@ -1,0 +1,100 @@
+/* Leaderboard */
+.leaderboard {
+    text-align: center;
+    margin: 80px auto;
+    max-width: 800px;
+    background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+    0 1px 1px rgba(255, 255, 255, 0.1) inset;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+.leaderboard h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #ffcc00;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+}
+
+.leaderboard ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    margin: 12px 0;
+    padding: 16px 24px;
+    background: linear-gradient(to right, #222222, #1a1a1a);
+    border-radius: 8px;
+    border-left: 4px solid #ffcc00;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.leaderboard li:nth-child(1) {
+    background: linear-gradient(to right, #3a3000, #221c00);
+    border-left: 4px solid #ffcc00;
+    transform: scale(1.02);
+}
+
+.leaderboard li:nth-child(2) {
+    background: linear-gradient(to right, #313131, #222222);
+    border-left: 4px solid #c0c0c0;
+}
+
+.leaderboard li:nth-child(3) {
+    background: linear-gradient(to right, #2d2418, #1e1810);
+    border-left: 4px solid #cd7f32;
+}
+
+.leaderboard li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(255, 215, 0, 0.15);
+    background: linear-gradient(to right, #2a2a2a, #222222);
+}
+
+.leaderboard .player-name {
+    font-weight: 600;
+    flex: 2;
+    text-align: left;
+}
+
+.leaderboard .player-score {
+    font-weight: 700;
+    color: #ffcc00;
+}
+
+.leaderboard .rank {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: #ffcc00;
+    color: #111;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 24px;
+    margin-right: 12px;
+}
+
+/* Add some subtle animation to the entire board */
+@keyframes glow {
+    0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(255, 255, 255, 0.1) inset; }
+    50% { box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2), 0 1px 1px rgba(255, 255, 255, 0.1) inset; }
+    100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(255, 255, 255, 0.1) inset; }
+}
+
+.leaderboard {
+    animation: glow 5s infinite alternate;
+}

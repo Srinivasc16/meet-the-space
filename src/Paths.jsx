@@ -75,8 +75,6 @@ const Paths = () => {
 
     return (
         <div className="career-paths-container">
-            <p>Click on a career to learn more about salary, skills, and qualifications.</p>
-
             <div className="career-grid">
                 {careers.map((career, index) => (
                     <div key={index} className="career-card">

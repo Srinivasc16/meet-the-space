@@ -44,29 +44,31 @@ function Navbar2() {
     };
 
     return (
-        <div className="navbarx">
+        <div className="navbar">
             {/* Left: Website Name */}
-            <div className="navbar-leftx">
-                <p className="website-namex">Akasha Milan</p>
+            <div className="navbar-left">
+                <Link to="/" className="website-name">Akasha Milan</Link>
             </div>
 
             {/* Center: Navigation Links */}
-            <nav className="navbar-centerx">
+            <nav className="navbar-center">
                 <Link to="/">Home</Link>
                 <Link to="/Newshub">Discussions</Link>
             </nav>
 
             {/* Right: User/Login Section */}
-            <div className="navbar-rightx">
+            <div className="navbar-right">
                 {user ? (
                     <div className="user-menu">
                         <button className="dropdown-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
                             {user.displayName || "User"}
                         </button>
-                        <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
-                            <button onClick={() => setShowForgotPassword(true)}>Forgot Password</button>
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
+                        {dropdownOpen && (
+                            <div className="dropdown-menu">
+                                <button onClick={() => setShowForgotPassword(true)}>Forgot Password</button>
+                                <button onClick={handleLogout}>Logout</button>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <Link to="/Login" className="login-btn">Login</Link>

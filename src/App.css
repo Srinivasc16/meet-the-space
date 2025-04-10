@@ -1,0 +1,19 @@
+/* Full-page background video */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Ensures the video covers the entire viewport */
+    z-index: -1; /* Behind all content */
+}
+
+/* Content wrapper */
+.content {
+    position: relative;
+    z-index: 1; /* Ensures content appears above the video */
+    color: white; /* Text color */
+}
+
+/* Hide scrollbar */

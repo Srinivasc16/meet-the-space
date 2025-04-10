@@ -1,150 +1,133 @@
-/* Reset defaults to ensure no spacing issues */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import "tailwindcss";
 
-body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    width: 100%;
-}
-
-/* Header Section */
 .headx {
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background-image: url('./assets/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    justify-content: center;
     position: relative;
-}
-
-.headx h1 {
-    font-size: clamp(40px, 5vw, 80px);
+    height: 100vh;                 /* Full screen height */
+    color: white;
     text-align: center;
-    color: white;
+    z-index: 10;
+    padding: 40px;
+}
+
+/* Heading Styles */
+.headx h1 {
+    font-size: 4rem;               /* Large and bold */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
     margin-bottom: 20px;
-    animation: fadeIn 0.8s ease-out;
-    width: 100%;
-    padding: 30px 30px 10px 70px;
+    animation: fadeIn 1.5s ease-in-out;
 }
 
+/* Subheading */
 .headx p {
-    font-size: clamp(16px, 2vw, 20px);
-    color: white;
-    max-width: 800px;
-    margin: 10px  20px 10px 500px;
-    animation: fadeIn 0.8s ease-out 0.2s backwards;
-    width: 100%;
-    padding: 0 20px 10px 20px;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 35px;
+    animation: fadeIn 2s ease-in-out;
 }
 
-/* Button Styling */
-button {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    outline: none;
-    border: 0;
-    vertical-align: middle;
+/* Button Container */
+.btn-main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 25px;               /* Generous padding for a bold look */
+    font-size: 1rem;                 /* Large text */
+    font-weight: 600;
+    color: white;                      /* White text */
+    background: #000;                  /* Black background */
+    border: 2px solid white;           /* White border */
+    border-radius: 50px;               /* Rounded edges */
     text-decoration: none;
-    background: transparent;
-    padding: 0;
-    font-size: inherit;
-    font-family: inherit;
-    animation: fadeIn 0.8s ease-out 0.4s backwards;
-}
-
-button.learn-more {
-    width: clamp(160px, 15vw, 192px);
-    height: auto;
-    color: white;
-}
-
-button.learn-more .circle {
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;  /* Smooth transition */
     position: relative;
-    display: block;
-    margin: 0;
-    width: 3rem;
-    height: 3rem;
-    background: #282936;
-    border-radius: 1.625rem;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Subtle shadow */
 }
 
-button.learn-more .circle .icon {
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    background: #fff;
+/* Hover Effect */
+.btn-main:hover {
+    background: white;                 /* White background on hover */
+    color: black;                      /* Black text on hover */
+    transform: translateY(-5px);       /* Slight upward lift */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8); /* Deeper shadow */
 }
 
-button.learn-more .circle .icon.arrow {
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-    left: 0.625rem;
-    width: 1.125rem;
-    height: 0.125rem;
-    background: none;
-}
-
-button.learn-more .circle .icon.arrow::before {
-    position: absolute;
+/* Glow Effect */
+.btn-main::before {
     content: "";
-    top: -0.29rem;
-    right: 0.0625rem;
-    width: 0.625rem;
-    height: 0.625rem;
-    border-top: 0.125rem solid #fff;
-    border-right: 0.125rem solid #fff;
-    transform: rotate(45deg);
+    position: absolute;
+    top: -120%;
+    left: -120%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    transition: all 0.8s ease-in-out;
+    z-index: 0;
 }
 
-button.learn-more .button-text {
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-    position: absolute;
+/* Glow on Hover */
+.btn-main:hover::before {
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0.75rem 0;
-    margin: 0 0 0 1.85rem;
-    font-weight: 700;
-    line-height: 1.6;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: clamp(14px, 1.5vw, 16px);
-}
-
-button:hover .circle {
     width: 100%;
+    height: 100%;
 }
 
-button:hover .circle .icon.arrow {
-    background: #fff;
-    transform: translate(1rem, 0);
+/* Ripple Effect */
+.btn-main::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background: white;
+    opacity: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s, height 0.4s, opacity 0.4s;
+    z-index: 1;
 }
 
-button:hover .button-text {
-    color: #fff;
+.btn-main:hover::after {
+    width: 200px;
+    height: 200px;
+    opacity: 0.2;
 }
 
-/* Animation */
+/* Animation on Button Click */
+.btn-main:active {
+    transform: scale(0.98);           /* Slight shrink effect */
+    transition: all 0.1s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .btn-main {
+        font-size: 1.2rem;
+        padding: 14px 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    .btn-main {
+        font-size: 1rem;
+        padding: 12px 28px;
+    }
+}
+
+/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-15px);
     }
     to {
         opacity: 1;
@@ -152,11 +135,42 @@ button:hover .button-text {
     }
 }
 
-/* Media Query to handle potential mobile issues */
-@media screen and (max-width: 767px) {
+/* Responsive Design */
+@media (max-width: 1024px) {
     .headx {
-        width: 100vw;
-        min-height: 100vh;
-        height: 100vh;
+        padding: 30px;
+    }
+
+    .headx h1 {
+        font-size: 4rem;          /* Slightly smaller on medium screens */
+    }
+
+    .headx p {
+        font-size: 1.5rem;
+    }
+
+    .learn-more {
+        font-size: 1.3rem;
+        padding: 14px 32px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .headx {
+        padding: 20px;
+    }
+
+    .headx h1 {
+        font-size: 3rem;
+    }
+
+    .headx p {
+        font-size: 1.2rem;
+    }
+
+    .learn-more {
+        font-size: 1rem;
+        padding: 12px 28px;
     }
 }

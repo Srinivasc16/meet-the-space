@@ -1,61 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Games.css";
+import {useNavigate} from "react-router-dom";
 
 const Games = () => {
-    const handleGameRedirect = (path) => {
-        window.location.href = path;
+    const [dailyGames, setDailyGames] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchDailyGames = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch("http://localhost:8080/api/daily-games");
+                if (!res.ok) throw new Error("Failed to fetch daily games");
+
+                const data = await res.json();
+                setDailyGames(data);
+            } catch (error) {
+                console.error("Error fetching daily games:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDailyGames();
+    }, []);
+
+    const handleGameRedirect = (route) => {
+        navigate(route);
     };
 
     return (
         <section className="gamesz">
             <div className="games-headerz">
-                <h2>🌟 Fun Space Games! 🚀</h2>
-                <p>Explore and play exciting space-themed games!</p>
+                <h2>🔥 Daily Space Games! 🎮</h2>
+                <p>Check out today's featured games!</p>
             </div>
 
-            <div className="games-containerz">
-                {/* Jigsaw Puzzle */}
-                <div className="game-cardz" onClick={() => handleGameRedirect('/Jigsaw')}>
-                    <span className="game-titlez">🧩 Jigsaw Puzzle</span>
-                    <p>Piece together space images!</p>
-                    <button>P L A Y</button>
+            {loading ? (
+                <p>Loading daily games...</p>
+            ) : (
+                <div className="games-containerz">
+                    {dailyGames.length > 0 ? (
+                        dailyGames.map((game, index) => (
+                            <div key={index} className="game-cardz" onClick={() => handleGameRedirect(game.route)}>
+                                <span className="game-titlez">{game.title}</span>
+                                <p>{game.description}</p>
+                                <button>P L A Y</button>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No daily games available</p>
+                    )}
                 </div>
-
-                {/* Space Adventure */}
-                <div className="game-cardz" onClick={() => handleGameRedirect('/SpaceAdventure')}>
-                    <span className="game-titlez">🚀 Space Adventure</span>
-                    <p>Explore planets and complete missions!</p>
-                    <button>P L A Y</button>
-                </div>
-
-                {/* Quiz Time */}
-                <div className="game-cardz" onClick={() => handleGameRedirect('/Quiz')}>
-                    <span className="game-titlez">❓ Quiz Time</span>
-                    <p>Test your space knowledge!</p>
-                    <button>P L A Y</button>
-                </div>
-
-                {/* Space Memory Match */}
-                <div className="game-cardz" onClick={() => handleGameRedirect('/MemoryMatch')}>
-                    <span className="game-titlez">🧠 Memory Match</span>
-                    <p>Match space-themed cards!</p>
-                    <button>P L A Y</button>
-                </div>
-
-                {/* Rocket Builder */}
-                <div className="game-cardz" onClick={() => handleGameRedirect('/RocketBuilder')}>
-                    <span className="game-titlez">🚀 Rocket Builder</span>
-                    <p>Design and launch your own rocket!</p>
-                    <button>P L A Y</button>
-                </div>
-
-                {/* Space Maze */}
-                <div className="game-cardz" onClick={() => handleGameRedirect('/SpaceMaze')}>
-                    <span className="game-titlez">🛰️ Space Maze</span>
-                    <p>Guide your spaceship through a tricky maze!</p>
-                    <button>P L A Y</button>
-                </div>
-            </div>
+            )}
         </section>
     );
 };

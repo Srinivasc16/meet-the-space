@@ -1,34 +1,37 @@
 .colleges-container {
     min-height: 100vh;
-    padding: 100px 45px;
+    padding: 60px 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background: #f5f5f5;
+    margin: 70px 50px 50px 50px;
 }
 
 .colleges-wrapper {
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .colleges-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
 }
 
 .colleges-header h1 {
-    font-size: 2.25rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #333333;
     margin-bottom: 16px;
 }
 
 .colleges-header p {
-    font-size: 1.25rem;
-    color: #ffffff;
+    font-size: 1.125rem;
+    color: #333333;
 }
 
 .colleges-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 30px;
     justify-items: center;
 }
 
@@ -36,40 +39,41 @@
     text-decoration: none;
     display: block;
     width: 100%;
-    max-width: 360px; /* Fixed width for all cards */
-    transform: scale(1);
-    transition: transform 0.3s ease;
+    max-width: 360px;
+    transition: transform 0.2s ease;
 }
 
 .college-card-link:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .college-card {
-    background-color: white;
-    border-radius: 8px;
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-    height: 380px; /* Fixed height for all cards */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+    height: 380px;
     display: flex;
     flex-direction: column;
 }
 
 .college-card:hover {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .college-image {
     width: 100%;
-    height: 200px; /* Fixed height for all images */
+    height: 200px;
     object-fit: cover;
-    flex-shrink: 0; /* Prevent image from shrinking */
+    border-bottom: 1px solid #dddddd;
+    flex-shrink: 0;
 }
 
 .college-content {
-    padding: 24px;
-    flex-grow: 1; /* Allow content to fill remaining space */
+    padding: 20px;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
@@ -77,25 +81,24 @@
 .college-title {
     font-weight: 600;
     font-size: 1.125rem;
-    color: #111827;
-    margin-bottom: 16px;
-    /* Ensure long titles don't overflow */
+    color: #333333;
+    margin-bottom: 14px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    height: 2.8em; /* Fixed height for two lines of text */
+    height: 2.8em;
 }
 
 .college-details {
-    margin-top: auto; /* Push details to bottom of card */
+    margin-top: auto;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
 .college-details p {
-    color: #4b5563;
+    color: #555555;
     display: flex;
     align-items: center;
 }

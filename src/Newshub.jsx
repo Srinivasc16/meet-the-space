@@ -5,13 +5,18 @@ const Newshub = () => {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const API_URL = "https://api.spaceflightnewsapi.net/v4/articles/";
+    const API_URL = "http://localhost:8080/api/news/articles"; // Local Spring Boot API endpoint
 
     useEffect(() => {
         fetch(API_URL)
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
             .then((data) => {
-                setArticles(data.results);
+                setArticles(data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -25,7 +30,13 @@ const Newshub = () => {
         <div className="container">
             <h1>Space News</h1>
 
-            {loading && <p className="loading">Loading news...</p>}
+            {/* Tailwind Loader */}
+            {loading && (
+                <div className="flex justify-center items-center h-64">
+                    <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                </div>
+            )}
+
             {error && <p className="error">{error}</p>}
 
             <div className="news-grid">
@@ -38,12 +49,6 @@ const Newshub = () => {
                             className="news-card"
                             key={article.id}
                         >
-                            {/* Red, Yellow, Green Control Buttons */}
-                            <div className="tools">
-                                <div className="circle"><span className="red box"></span></div>
-                                <div className="circle"><span className="yellow box"></span></div>
-                                <div className="circle"><span className="green box"></span></div>
-                            </div>
 
                             <img
                                 src={article.image_url || "https://via.placeholder.com/300"}

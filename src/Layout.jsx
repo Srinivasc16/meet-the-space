@@ -19,9 +19,9 @@ import Quiz from "./Quiz.jsx";
 import Games from "./Games.jsx";
 import Videos from "./Videos.jsx";
 import CareerDetails from "./CareerDetails.jsx";
-import Chatbot from "./ChatBot.jsx";
 import Allcolleges from "./Allcolleges.jsx";
 import Allcourses from "./Allcourses.jsx";
+import Leaderboard from "./Leaderboard.jsx";
 
 function Layout() {
     const location = useLocation(); // Now correctly inside Router
@@ -31,7 +31,7 @@ function Layout() {
     }, [location]);
 
     const hideNavbarRoutes = ["/Arpage"];
-    const hideFooterRoutes = ["/Arpage", "/Jigsaw"];
+    const hideFooterRoutes = ["/Arpage", "/Jigsaw","/Options"];
 
     const KidsNavbar =
         ["/Kids","/Login"].includes(location.pathname) ||
@@ -47,12 +47,14 @@ function Layout() {
             <Routes>
                 <Route path="" element={<Home />} />
                 <Route path="/Arpage" element={<Arpage />} />
+                <Route path="/leaderboard" element={<Leaderboard />} />
+                <Route path="/space-quiz" element={<Quiz />} />
                 <Route path="/Newshub" element={<Newshub />} />
                 <Route path="/Kids" element={<Kids />} />
                 <Route path="/Jigsaw" element={<Jigsaw />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Community" element={<Community />} />
-                <Route path="/discussion/:title" element={<Discussion />} />
+                <Route path="/discussion/:communityType" element={<Discussion />} />
                 <Route path="/Space" element={<Space />} />
                 <Route path="/construction" element={<Construction />} />
                 <Route path="/careers" element={<Careers />} />

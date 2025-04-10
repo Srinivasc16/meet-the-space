@@ -1,31 +1,48 @@
-import { useState } from "react";
-import {Link} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import "./navbar.css";
 
-function Navbar() {
+const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    // Handle scroll effect
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 10);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <div className="navbar">
-            {/* Left: Website Name */}
-            <div className="navbar-left">
-                <p className="website-name">Akasha Milan</p>
-            </div>
+        <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
+            <div className="navbar-container">
+                {/* Left: Website Name */}
+                <Link to="/" className="navbar-logo">
+                    Akasha Milan
+                </Link>
 
-            {/* Center: Navigation Links */}
-            <nav className={`navbar-center ${isOpen ? "open" : ""}`}>
-                <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-                <Link to="/Newshub" onClick={() => setIsOpen(false)}>News Hub</Link>
-                <Link to="/Careers" onClick={() => setIsOpen(false)}>Careers</Link>
-                <Link to="/Space" onClick={() => setIsOpen(false)}>Space Stations</Link>
-            </nav>
+                {/* Center: Navigation Links */}
+                <div className={`nav-links ${isOpen ? "open" : ""}`}>
+                    <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+                    <Link to="/Newshub" onClick={() => setIsOpen(false)}>News Hub</Link>
+                    <Link to="/Careers" onClick={() => setIsOpen(false)}>Careers</Link>
+                    <Link to="/Community" onClick={() => setIsOpen(false)}>Community</Link>
+                    <Link to="/Space" onClick={() => setIsOpen(false)}>Space Stations</Link>
+                    <Link to="/Kids" className="kids-btn" onClick={() => setIsOpen(false)}>Kids</Link>
+                </div>
 
-            {/* Right: Kids Section */}
-            <div className="navbar-right">
-                <Link to="/Kids" className="kids-section" onClick={() => setIsOpen(false)}>Kids</Link>
+                {/* Mobile Menu Button */}
+                <div className="menu-btn" onClick={() => setIsOpen(!isOpen)}>
+                    {isOpen ? <X size={28} /> : <Menu size={28} />}
+                </div>
             </div>
-        </div>
+        </nav>
     );
-}
+};
 
 export default Navbar;

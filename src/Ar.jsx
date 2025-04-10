@@ -19,25 +19,25 @@ function Ar() {
 
     const handleContinue = () => {
         setShowPopup(false);
-        navigate("/Arpage"); // Redirects to the 'Arpage' page
+        navigate("/Arpage"); // Navigate when "Continue" is clicked
     };
 
     return (
-        <div className="ar">
-            {/* Background iframe */}
-            <div className="iframe-container">
-                {loading && <div className="loader">Loading...</div>}
-                <iframe
-                    src="https://srinivasc16.github.io/meetthespace/"
-                    title="space-view"
-                    onLoad={() => setLoading(false)}
-                    className="iframe-view"
-                />
-            </div>
+        <div className="ar-container">
 
             {/* Content Overlay */}
-            <div className="content">
+            <div className="contenty">
                 <h1>Augmented Reality</h1>
+                {/* Iframe container with adjusted width & height */}
+                <div className="iframe-container">
+                    <iframe
+                        src="http://localhost:5173/meet-the-space/Arpage" // Adjust based on frontend URL
+                        title="AR Experience"
+                        className="iframe-view"
+                        onLoad={() => setLoading(false)}
+                    />
+                    {loading && <div className="loading">Loading...</div>}
+                </div>
                 <div className="button-container">
                     <button className="learn-more" onClick={handleClick}>
                         <span className="circle">
@@ -52,13 +52,13 @@ function Ar() {
             {showPopup && (
                 <div className="popup-overlay">
                     <div className="popup">
-                        <button className="close-btn" onClick={() => setShowPopup(false)}>X</button>
+                        <button className="closex-btn" onClick={() => setShowPopup(false)}>X</button>
                         <p>You are currently using a {deviceType}.</p>
-                        {deviceType === "laptop" ? (
-                            <p>You can experience Augmented Reality.</p>
-                        ) : (
-                            <p>You can experience Virtual Reality.</p>
-                        )}
+                        <p>
+                            {deviceType === "laptop"
+                                ? "You can experience Augmented Reality."
+                                : "You can experience Virtual Reality."}
+                        </p>
                         <button className="continue-btn" onClick={handleContinue}>OK, Continue</button>
                     </div>
                 </div>

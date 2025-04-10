@@ -1,168 +1,91 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import './kids.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./kids.css";  // Import CSS file
 
 const KidsSpaceExplorer = () => {
+    const [dailyGames, setDailyGames] = useState([]);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const scrollRef = useRef(null);
 
     useEffect(() => {
-        document.title = "Explore Space | Fun Learning for Kids";
+        document.title = "Space Explorer | Cosmic Fun for Kids!";
+
+        const fetchDailyGames = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch("http://localhost:8080/api/daily-games");
+                if (!res.ok) throw new Error("Failed to fetch daily games");
+
+                const data = await res.json();
+                console.log(data);
+                setDailyGames(data);
+            } catch (error) {
+                console.error("Error fetching daily games:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDailyGames();
     }, []);
 
-    const handleGameRedirect = (page, section) => {
-        navigate(page); // Navigate to the page first
-
-        setTimeout(() => {
-            const element = document.querySelector(`.${section}`); // Select the section using ID
-            if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
-            }
-        }, 300); // Delay slightly to ensure page loads
-    };
-
-
-    const scroll = (direction) => {
-        if (scrollRef.current) {
-            const scrollAmount = 600; // Adjust as needed
-            scrollRef.current.scrollBy({
-                left: direction === "left" ? -scrollAmount : scrollAmount,
-                behavior: "smooth",
-            });
-        }
+    const handleGameRedirect = (route) => {
+        navigate(route);
     };
 
     return (
-        <div className="space-explorer">
-            {/* Hero Section */}
-            <section className="hero">
-                {[...Array(20)].map((_, i) => (
-                    <Star
-                        key={i}
-                        className="animate-glow"
-                        style={{
-                            position: 'absolute',
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            color: '#ffd700'
-                        }}
-                        size={Math.random() * 10 + 5}
-                    />
-                ))}
+        <div className="explorer-container">
 
-                <h1 className="hero-title">Welcome to Space Explorer! 🚀</h1>
-                <p className="hero-text">
-                    Get ready for an amazing journey through space! Learn about planets,
-                    stars, and all the cool things in our universe!
-                </p>
-            </section>
+            {/* Header Section */}
+            <header className="header">
+                <h1>Kids Section</h1>
+            </header>
 
-            {/* Games Section */}
-            <section className="games">
-                <div className="something">
-                    <h2>Check out!</h2>
-                </div>
-                <div className="gamesx">
-                    {/* Jigsaw Puzzle */}
-                    <div className="containery">
-                        <div className="box" onClick={() => handleGameRedirect('/Jigsaw')}>
-                            <span className="title">Jigsaw Puzzle</span>
-                            <div>
-                                <strong>Test your puzzle skills!</strong>
-                                <p>Piece together space images!</p>
-                                <button onClick={() => handleGameRedirect('/Jigsaw', 'jigsaw')}>P L A Y</button>
+            {/* Daily Games Section */}
+            <section className="games-section">
+                <h2>Games</h2>
+
+                {loading ? (
+                    <div className="loader">🌌 Loading cosmic fun...</div>
+                ) : dailyGames.length > 0 ? (
+                    <div className="games-grid">
+                        {dailyGames.map((game) => (
+                            <div key={game.id} className="game-card" onClick={() => handleGameRedirect(game.route)}>
+                                <img src={game.imageUrl} alt={game.title} />
+                                <div className="game-info">
+                                    <h3>{game.title}</h3>
+                                    <p>{game.description}</p>
+                                    <button>🚀 Play Now</button>
+                                </div>
                             </div>
-                        </div>
+                        ))}
                     </div>
-
-                    {/* Space Adventure */}
-                    <div className="containery">
-                        <div className="box" onClick={() => handleGameRedirect('/SpaceAdventure')}>
-                            <span className="title">Space Adventure</span>
-                            <div>
-                                <strong>Explore the Galaxy!</strong>
-                                <p>Discover planets & missions!</p>
-                                <button>P L A Y</button>
-                            </div>
-                        </div>
+                ) : (
+                    <div className="no-games">
+                        <span>👾</span>
+                        <h3>No games available today</h3>
+                        <p>Check back tomorrow for more cosmic fun!</p>
                     </div>
+                )}
+            </section>
 
-                    {/* Quiz Time */}
-                    <div className="containery">
-                        <div className="box" onClick={() => handleGameRedirect('/Quiz')}>
-                            <span className="title">Quiz Time</span>
-                            <div>
-                                <strong>Test your knowledge!</strong>
-                                <p>Answer fun space questions!</p>
-                                <button onClick={() => handleGameRedirect('/Quiz', 'quiz-container')}>P L A Y</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {/* Space Fact Section */}
+            <section className="fact-section">
+                <h3>🌌 Space Fact of the Day</h3>
+                <p>🌠 A day on Venus is longer than its year! It takes 243 Earth days to rotate once, but only 225 Earth days to orbit the Sun.</p>
+            </section>
 
-                {/* See All Button */}
-                <div className="see-all-container">
-                    <button className="see-all-button" onClick={() => handleGameRedirect('/Games')}>
-                        See All Games →
-                    </button>
+            {/* Navigation Menu */}
+            <section className="nav-menu">
+                <h3>Explore More Adventures</h3>
+                <div className="menu-buttons">
+                    <button>🌌 Planet Quiz</button>
+                    <button>🔭 Space Videos</button>
+                    <button>📚 Space Facts</button>
+                    <button>🎨 Space Coloring</button>
                 </div>
             </section>
 
-
-            {/* Space Learning Videos */}
-            <section>
-                <div className="containerl">
-                    <div className="video-wrapper">
-                        <div className="video-header">
-                            <h2>Learn about Space</h2>
-                            <button className="view-all"
-                                    onClick={() => window.location.href = "/meet-the-space/Youtube"}>View All
-                            </button>
-                        </div>
-                        <div className="video-scroll" ref={scrollRef}>
-                            <iframe width="560" height="315"
-                                    src="https://www.youtube.com/embed/yCjJyiqpAuU?si=hVNs-xeISx3CVNj2"
-                                    title="YouTube video player" frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                            <iframe width="560" height="315"
-                                    src="https://www.youtube.com/embed/_Qj5a2HtdyA?si=QOqJvf7AePHPpgYs"
-                                    title="YouTube video player" frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                            <iframe width="560" height="315"
-                                    src="https://www.youtube.com/embed/isTEYefMzzM?si=9B4R9_ir4chmlH_A"
-                                    title="YouTube video player" frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                            <iframe
-                                width="560" height="315"
-                                src="https://www.youtube.com/embed/F2prtmPEjOc"
-                                title="The Moon Explained for Kids"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen>
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Fun Learning Section */}
-            <section className="fun-learning">
-            <h2 className="section-title">Super Space Facts! ⭐</h2>
-                <div className="learning-text">
-                    <p>The Sun is so big that about 1.3 million Earths could fit inside it!</p>
-                    <p>A day on Venus is longer than its year!</p>
-                    <p>The footprints on the Moon will stay there for millions of years!</p>
-                </div>
-            </section>
-
-            {/* Footer */}
-            <footer className="footer">
-                <p>&copy; 2025 Space Explorer. Making learning fun for kids! 🌟</p>
-            </footer>
         </div>
     );
 };

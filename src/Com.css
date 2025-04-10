@@ -1,83 +1,119 @@
-
-/* 🚀 Community Page Container */
+/* Classic Community Page Container */
 .community-container {
     max-width: 1200px;
-    margin: 70px auto;
-    padding: 20px;
-    text-align: center;
+    margin: 80px auto;
+    padding: 30px;
+    font-family: 'Georgia', serif;
+    color: #333;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 
 .community-container h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: aliceblue;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-bottom: 2px solid black;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+    font-weight: normal;
+    border-bottom: 2px solid #555;
     display: inline-block;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
-/* 🎨 Grid Layout for Topics */
+/* Elegant Grid Layout for Topics */
 .topics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 30px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
-/* 🛰️ Individual Topic Card */
+/* Refined Topic Card */
 .topic-card {
-    background: white; /* Darker background for depth */
-    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    text-align: center;
-    padding-bottom: 10px;
+    text-align: left;
 }
 
 .topic-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 8px 15px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* 🌌 Topic Image */
+/* Topic Image with Classic Proportions */
 .topic-image {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
-    border-bottom: 2px solid #ffffff;
+    border-bottom: 1px solid #eee;
 }
 
-/* 🚀 Topic Title */
+/* Topic Content Area */
+.topic-content {
+    padding: 20px 25px;
+}
+
+/* Classic Typography for Topic Title */
 .topic-card h3 {
-    margin: 10px 0;
+    margin: 0 0 15px 0;
     font-size: 1.4rem;
-    color: #0f0f0f;
-    text-transform: capitalize;
+    color: #222;
+    font-weight: normal;
+    font-family: 'Georgia', serif;
 }
 
-/* 📝 Topic Description */
+/* Elegant Topic Description */
 .topic-card p {
     font-size: 1rem;
-    color: #c9d1d9;
-    padding: 0 15px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
 }
 
-/* 📱 Responsive Design */
+/* Topic Metadata */
+.topic-meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+/* Read More Link */
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: #3a5a78;
+    text-decoration: none;
+    font-style: italic;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design with Classic Proportions */
 @media (max-width: 768px) {
     .community-container {
-        padding: 15px;
+        padding: 20px;
+        margin: 30px auto;
     }
 
     .topics-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
     }
 
     .topic-card h3 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 }

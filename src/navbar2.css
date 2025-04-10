@@ -1,158 +1,207 @@
-/* Navbar Container */
+/* Navbar Styles */
 .navbarx {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
-    position: fixed; /* Keeps it fixed at the top */
-    top: 10px; /* Adds slight spacing from the top */
-    left: 50%;
-    transform: translateX(-50%); /* Centers navbar */
-    align-items: center;
     justify-content: space-between;
-    width: 80%;
-    border-radius: 50px;
+    align-items: center;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
     background: transparent;
-    z-index: 1000; /* Ensures it stays above other content */
-    overflow: visible; /* Prevents hidden elements */
+    box-shadow: none;
+    padding: 20px 40px;
 }
 
-/* Left Section (Website Name) */
+/* Navbar when scrolled */
+.navbarx.scrolled {
+    background: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+/* Navbar container */
+.navbar-containerx {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    transition: padding 0.3s;
+}
+
+/* Logo styling */
 .navbar-leftx .website-namex {
-    font-size: 18px;
+    font-size: 28px;
     font-weight: bold;
-    color: black;
-    padding: 10px 20px;
-    margin: 20px 20px 20px 20px;
-    border-radius: 50px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
 }
 
-/* Center Section (Navigation Links) */
+.navbar-leftx .website-namex:hover {
+    color: #ff6b6b;
+    transform: scale(1.1);
+}
+
+/* Navigation links */
 .navbar-centerx {
     display: flex;
-    gap: 20px;
-    padding: 10px 25px;
-    margin: 20px 20px 20px 20px;
-    border-radius: 50px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    gap: 40px;
+    transition: all 0.4s ease;
 }
 
 .navbar-centerx a {
-    text-decoration: none;
+    font-size: 18px;
     font-weight: 500;
-    color: black;
-    transition: color 0.2s ease-in-out;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+    position: relative;
+    padding: 5px 0;
+}
+
+/* Underline effect on hover */
+.navbar-centerx a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background: #ff6b6b;
+    transition: width 0.3s;
+}
+
+.navbar-centerx a:hover::after {
+    width: 100%;
 }
 
 .navbar-centerx a:hover {
-    color: #ff6b6b;
+    color: #ffcc00;
+    transform: translateY(-2px);
 }
 
-/* Right Section (User/Login with Dropdown) */
+/* Mobile Menu Button */
+.menu-toggle-btn {
+    display: none;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle-btn:hover {
+    transform: rotate(90deg);
+}
+
+/* User/Login Section */
 .navbar-rightx {
-    position: relative;
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+/* Login Button */
+.login-btnx {
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
     padding: 10px 25px;
-    border-radius: 50px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.navbar-rightx a {
+    border: 2px solid #fff;
+    border-radius: 30px;
     text-decoration: none;
-    font-weight: 500;
-    color: black;
+    transition: all 0.3s ease;
 }
 
-/* Dropdown Button */
-.dropdown-btn {
-    background: none;
+.login-btnx:hover {
+    background: #222;
+    color: #7CB9E8;
+    border-color: #1a2a6c;
+}
+
+/* User Dropdown */
+.user-menux {
+    position: relative;
+}
+
+.dropdown-btnx {
+    background: transparent;
+    color: #fff;
     border: none;
-    font-weight: 500;
-    color: black;
+    font-size: 16px;
     cursor: pointer;
-    transition: color 0.2s ease-in-out;
-    border-radius: 8px;
+    padding: 10px 20px;
+    transition: color 0.3s;
 }
 
-.dropdown-btn:hover {
+.dropdown-btnx:hover {
     color: #ff6b6b;
 }
 
-/* Dropdown Menu */
-.dropdown-menu {
+.dropdown-menux {
     position: absolute;
-    top: 50px;
+    top: 45px;
     right: 0;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    width: 180px;
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    padding: 10px;
-}
-
-/* Show dropdown when .dropdown-menu.active is added */
-.dropdown-menu.active {
-    display: flex;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Dropdown Links */
-.dropdown-menu a,
-.dropdown-menu button {
-    text-decoration: none;
-    color: black;
-    padding: 12px;
-    text-align: left;
-    border: none;
-    background: none;
-    width: 100%;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    background: #111;
     border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    z-index: 999;
 }
 
-.dropdown-menu a:hover,
-.dropdown-menu button:hover {
-    background: rgb(255, 168, 168);
-    color: black;
+.dropdown-menux button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    padding: 8px 12px;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
 }
 
-/* Prevent Page Overflow */
-body {
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
+.dropdown-menux button:hover {
+    background: #ff6b6b;
+    color: #fff;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbarx {
-        flex-direction: column;
-        width: 90%;
-        padding: 10px;
+/* Mobile Styling */
+@media (max-width: 1024px) {
+    .menu-toggle-btn {
+        display: block;
     }
 
     .navbar-centerx {
-        margin: 10px 0;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        z-index: 999;
+        padding: 30px 0;
+        text-align: center;
+    }
+
+    .navbar-centerx.open {
+        display: flex;
+    }
+
+    .navbar-centerx a {
+        padding: 15px 0;
+        font-size: 20px;
     }
 
     .navbar-rightx {
-        position: relative;
-    }
-
-    .dropdown-menu {
-        top: 40px;
-        right: 10px;
-        width: 150px;
+        display: none;
     }
 }

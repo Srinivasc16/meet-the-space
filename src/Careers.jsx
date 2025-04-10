@@ -60,7 +60,7 @@ const Careers = () => {
 
     return (
         <div className="careers-container">
-            <h1 className="titley">Careers in Space :Your Ultimate Guide</h1>
+            <h1 className="titley">Careers in Space</h1>
             <section title="📚 Career Paths">
                 <Paths/>
             </section>

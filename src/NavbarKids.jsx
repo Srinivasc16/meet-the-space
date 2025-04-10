@@ -1,99 +1,73 @@
 import { useState, useEffect } from "react";
 import "./navbar2.css";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, signOut, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
+import { Menu, X } from "lucide-react";
 
-function navbarKids() {
-    const [user, setUser] = useState(null);
+function NavbarKids() {
+    const [userName, setUserName] = useState("User");
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [showForgotPassword, setShowForgotPassword] = useState(false);
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
+    const [scrolled, setScrolled] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
-    const auth = getAuth();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-        return () => unsubscribe();
-    }, [auth]);
-
-    const handleLogout = async () => {
-        try {
-            await signOut(auth);
-            setUser(null);
-            navigate("/Login");
-        } catch (error) {
-            console.error("Logout Error:", error);
-        }
-    };
-
-    const handleForgotPassword = async () => {
-        if (!email) {
-            setMessage("Please enter your email.");
-            return;
+        const nameFromStorage = localStorage.getItem("userName");
+        if (nameFromStorage) {
+            setUserName(nameFromStorage);
         }
 
-        try {
-            await sendPasswordResetEmail(auth, email);
-            setMessage("Reset link sent to your email.");
-        } catch (error) {
-            setMessage("Error sending reset email. Try again.");
-        }
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("userName"); // Clear stored user info
+        navigate("/Login");
     };
 
     return (
-        <div className="navbarx">
+        <div className={`navbarx ${scrolled ? "scrolled" : ""}`}>
             {/* Left: Website Name */}
             <div className="navbar-leftx">
-                <p className="website-namex">Akasha Milan</p>
+                <Link to="/" className="website-namex">Akasha Milan</Link>
             </div>
 
+            {/* Mobile Menu Toggle */}
+            <button className="menu-toggle-btn" onClick={() => setMenuOpen(!menuOpen)}>
+                {menuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+
             {/* Center: Navigation Links */}
-            <nav className="navbar-centerx">
-                <Link to="/">Home</Link>
-                <Link to="/Newshub">News Hub</Link>
-                <Link to="/Newshub">Games</Link>
-                <Link to="/Newshub">Learning</Link>
+            <nav className={`navbar-centerx ${menuOpen ? "open" : ""}`}>
+                <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+                <Link to="/Newshub" onClick={() => setMenuOpen(false)}>News Hub</Link>
+                <Link to="/Games" onClick={() => setMenuOpen(false)}>Games</Link>
+                <Link to="/Learning" onClick={() => setMenuOpen(false)}>Learning</Link>
             </nav>
 
             {/* Right: User/Login Section */}
             <div className="navbar-rightx">
-                {user ? (
-                    <div className="user-menu">
-                        <button className="dropdown-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                            {user.displayName || "User"}
+                {userName ? (
+                    <div className="user-menux">
+                        <button className="dropdown-btnx" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                            {userName}
                         </button>
-                        <div className={`dropdown-menu ${dropdownOpen ? "active" : ""}`}>
-                            <button onClick={() => setShowForgotPassword(true)}>Forgot Password</button>
-                            <button onClick={handleLogout}>Logout</button>
-                        </div>
+                        {dropdownOpen && (
+                            <div className="dropdown-menux">
+                                <button onClick={handleLogout}>Logout</button>
+                            </div>
+                        )}
                     </div>
                 ) : (
-                    <Link to="/Login" className="login-btn">Login</Link>
+                    <Link to="/Login" className="login-btnx">Login</Link>
                 )}
             </div>
-
-            {/* Forgot Password Popup */}
-            {showForgotPassword && (
-                <div className="popup">
-                    <div className="popup-content">
-                        <h3>Reset Password</h3>
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <button onClick={handleForgotPassword}>Send Reset Link</button>
-                        {message && <p className="message">{message}</p>}
-                        <button className="close-btn" onClick={() => setShowForgotPassword(false)}>Close</button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
 
-export default navbarKids;
+export default NavbarKids;

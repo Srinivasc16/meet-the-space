@@ -1,143 +1,134 @@
-/* Navbar Container */
+
 .navbar {
-    display: flex;
-    position: fixed; /* Keeps it fixed at the top */
-    top: 10px; /* Adds slight spacing from the top */
-    left: 48%;
-    transform: translateX(-50%); /* Centers navbar */
-    align-items: center;
-    justify-content: space-between;
-    width: 80%;
-    border-radius: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
     background: transparent;
-    z-index: 1000; /* Ensures it stays above other content */
-    overflow: visible; /* Prevents hidden elements */
+    box-shadow: none;
 }
 
-/* Left Section (Website Name) */
-.navbar-left .website-name {
-    font-size: 18px;
-    font-weight: bold;
-    color: black;
-    padding: 10px 20px;
-    margin: 20px 20px 20px 20px;
-    border-radius: 50px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Navbar when scrolled */
+.navbar.scrolled {
+    background: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
 }
 
-/* Center Section (Navigation Links) */
-.navbar-center {
+/* Navbar content container */
+.navbar-container {
     display: flex;
-    gap: 20px;
-    padding: 10px 25px;
-    margin: 20px 20px 20px 20px;
-    border-radius: 50px;
-    background-color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-center a {
-    text-decoration: none;
-    font-weight: 500;
-    color: black;
-    transition: color 0.2s ease-in-out;
-}
-
-.navbar-center a:hover {
-    color: #ff6b6b;
-}
-/* Right Section (Kids) */
-.navbar-right {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    transition: padding 0.3s;
 }
 
-/* Kids Section Button */
-.navbar-right .kids-section {
-    position: relative;
-    padding: 10px 25px;
-    font-size: 18px;
+/* Logo styling */
+.navbar-logo {
+    font-size: 26px;
     font-weight: bold;
-    color: white; /* Text color */
-    background: black; /* White button background */
-    border-radius: 50px;
-    text-decoration: none;
-    cursor: pointer;
-    z-index: 1;
-    overflow: hidden;
-    border: none;
-}
-
-/* Rotating Rainbow Border */
-.navbar-right .kids-section::before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    border-radius: 50px;
-    padding: 3px;
-    background: conic-gradient(
-            #ff0077, #ffcc00, #00ffcc, #0077ff, #ff0077
-    );
-    mask-composite: exclude;
-    -webkit-mask-composite: destination-out;
-    animation: rotateBorder 1.9s linear infinite;
-    z-index: -2;
-}
-
-/* White Background Inside the Button */
-.navbar-right .kids-section::after {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    border-radius: 50px;
-    background: black; /* Keeps the inside white */
-    z-index: -1;
-}
-
-/* Rotate Animation */
-@keyframes rotateBorder {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Hover Effect */
-.navbar-right .kids-section:hover {
-    background-color: black;
     color: white;
-    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .navbar-right .kids-section {
-        padding: 10px 18px;
-        font-size: 16px;
-    }
+
+/* Navigation links */
+.nav-links {
+    display: flex;
+    gap: 40px;
+    transition: all 0.4s ease;
 }
 
-/* Prevent Page Overflow */
-body {
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
+.nav-links a {
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s, transform 0.3s;
+    padding: 5px 0;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar {
+/* Underline effect on hover */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background: #ff6b6b;
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #ffcc00;
+    transform: translateY(-2px);
+}
+
+/* Kids Button */
+.kids-btn {
+    color: white;
+    padding: 12px 35px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Gradient animation on kids button */
+.kids-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile Menu Button */
+.menu-btn {
+    display: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Mobile menu */
+@media (max-width: 1024px) {
+    .nav-links {
+        display: none;
         flex-direction: column;
-        width: 90%;
-        padding: 10px;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        z-index: 999;
+        padding: 30px 0;
+        text-align: center;
     }
 
-    .navbar-center {
-        margin: 10px 0;
-        flex-wrap: wrap;
-        justify-content: center;
+    .nav-links.open {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-links a {
+        padding: 15px 0;
+        font-size: 20px;
     }
 }

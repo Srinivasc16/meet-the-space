@@ -1,109 +1,192 @@
-.ar {
-    position: relative;
-    width: 100%;
-    height: 100vh; /* Full viewport height */
+/* Main AR Container */
+.ar-container {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    color: #ffffff;
     text-align: center;
-    color: white;
-    overflow: hidden;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Background iFrame Container */
+/* Title Styling */
+.contenty h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Iframe Container */
 .iframe-container {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    z-index: -1; /* Send behind content */
+    max-width: 1800px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
 }
 
-/* iFrame as Background */
 .iframe-view {
     width: 100%;
     height: 100%;
     border: none;
-    object-fit: cover; /* Ensure it covers the entire background */
+    border-radius: 15px;
 }
 
-/* Loader Styling */
-.loader {
+/* Loading Indicator */
+.loading {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
+    font-size: 1.2rem;
+    color: #ff9900;
     font-weight: bold;
-    color: white;
+    animation: fadeIn 1.5s infinite alternate;
 }
 
-/* Content Overlay */
-.content {
-    position: relative;
-    z-index: 1;
-    padding: 20px;
-    border-radius: 10px;
+/* Button Container */
+.button-container {
+    margin-top: 30px;
 }
 
-/* Heading */
-.content h1 {
-    font-size: 2rem;
-    margin-bottom: 400px;
-    color: white;
+/* Interactive Button */
+.learn-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #ff6600, #ff3300);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(255, 102, 0, 0.3);
 }
+
+.learn-more:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 15px rgba(255, 102, 0, 0.5);
+}
+
+/* Popup Overlay */
 .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 10;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
+/* Popup Box */
 .popup {
-    background: white;
-    color: black;
-    padding: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 25px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 440px;
     text-align: center;
-    width: 400px;
-}
-.popup {
-    font-style: italic;
-    font-weight: bold;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    animation: popUp 0.3s ease-in-out;
+    position: relative;
 }
 
-.close-btn {
-    background: red;
-    color: white;
+/* Close Button */
+.closex-btn {
+    background: transparent;
     border: none;
-    padding: 5px 10px;
+    font-size: 1.4rem;
+    font-weight: bold;
     cursor: pointer;
     position: absolute;
     top: 10px;
-    right: 10px;
-    border-radius: 50%;
+    right: 15px;
+    color: green;
+    transition: 0.3s ease;
 }
 
+.closex-btn:hover {
+    color: #cc2900;
+}
+
+/* Continue Button */
 .continue-btn {
-    background: #007BFF;
+    background: linear-gradient(45deg, #007bff, #0056b3);
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 06px 20px;
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: 0.3s ease;
 }
 
 .continue-btn:hover {
-    background: #0056b3;
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #0056b3, #003c7e);
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0.6;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .iframe-container {
+        width: 90%;
+        height: 300px;
+    }
+
+    .popup {
+        width: 280px;
+    }
+
+    .content h1 {
+        font-size: 2rem;
+    }
+
+    .learn-more {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}

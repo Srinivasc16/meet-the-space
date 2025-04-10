@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { db } from "./firebaseConfig"; // Ensure correct import
-import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import "./Com.css"; // Import CSS
+import "./Com.css"; // Ensure you have CSS styles
 
 const Community = () => {
     const [topics, setTopics] = useState([]);
@@ -11,14 +9,13 @@ const Community = () => {
     useEffect(() => {
         const fetchTopics = async () => {
             try {
-                const querySnapshot = await getDocs(collection(db, "Updates")); // ✅ Fetch "discussions" collection
-                const topicsData = querySnapshot.docs.map(doc => ({
-                    id: doc.id,  // Firestore document ID (Title)
-                    ...doc.data() // Document fields (Image, Timestamp, etc.)
-                }));
-                setTopics(topicsData);
+                const response = await fetch("http://localhost:8080/api/community");
+                if (!response.ok) throw new Error("Failed to fetch discussions");
+
+                const data = await response.json();
+                setTopics(data);
             } catch (error) {
-                console.error("Error fetching topics:", error);
+                console.error("Error fetching discussions:", error);
             }
         };
 
@@ -31,14 +28,22 @@ const Community = () => {
             <div className="topics-grid">
                 {topics.length > 0 ? (
                     topics.map((topic) => (
-                        <div key={topic.id} className="topic-card" onClick={() => navigate(`/discussion/${topic.id}`)}>
-                            <img src={topic.image || "https://example.com/default.jpg"} alt={topic.id} className="topic-image" />
-                            <h3>{topic.id}</h3> {/* Display the topic title (Firestore document ID) */}
-                            <p>{topic.description || "No description available"}</p>
+                        <div
+                            key={topic.id}
+                            className="topic-card"
+                            onClick={() => navigate(`/discussion/${encodeURIComponent(topic.title)}`)} // Redirects using the discussion name
+                        >
+                            <img
+                                src={topic.image || "https://example.com/default.jpg"}
+                                alt={topic.title}
+                                className="topic-image"
+                            />
+                            <h3>{topic.title}</h3>
+                            <p>{topic.description}</p>
                         </div>
                     ))
                 ) : (
-                    <p>Loading topics...</p>
+                    <p>Loading discussions...</p>
                 )}
             </div>
         </div>
